@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebRTC Meet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ================= HOME VIEW ================= -->
+<section id="homeView" class="view">
+  <header class="home-header">
+    <h1>WebRTC Meet</h1>
+    <p>Select a contact to start a video call</p>
+  </header>
+
+  <div class="friends-list">
+    <div class="friend-card" onclick="startCall('wassim')">
+      <div class="avatar">W</div>
+      <div class="info">
+        <span class="name">wassim</span>
+        <span class="status">Online</span>
+      </div>
+    </div>
+
+    <div class="friend-card" onclick="startCall('amine')">
+      <div class="avatar">A</div>
+      <div class="info">
+        <span class="name">amine</span>
+        <span class="status">Online</span>
+      </div>
+    </div>
+
+    <div class="friend-card" onclick="startCall('malak')">
+      <div class="avatar">M</div>
+      <div class="info">
+        <span class="name">malak</span>
+        <span class="status offline">Offline</span>
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+<!-- ================= MEETING VIEW ================= -->
+<section id="meetingView" class="view hidden">
+
+  <header class="meeting-header">
+    <span>Secure WebRTC Call</span>
+  </header>
+
+  <div class="video-area">
+    <video id="remoteVideo" autoplay playsinline></video>
+    <video id="localVideo" autoplay muted playsinline class="local-video"></video>
+  </div>
+
+  <footer class="controls">
+    <button id="micBtn" class="control-btn">Mute</button>
+    <button id="camBtn" class="control-btn">Stop Video</button>
+    <button id="leaveBtn" class="control-btn danger">Leave</button>
+  </footer>
+
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
