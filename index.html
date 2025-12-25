@@ -6,163 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body >
+<body>
 
-<!-- ================= HOME VIEW ================= -->
-<section id="homeView" class="view">
-  
-  <header class="home-header">
-  <!-- top bar -->
-  <div class="home-top">
-    <h1 class="logo">WebRTC Meet</h1>
+<header class="landing-header">
+  <div class="logo">WebRTC Meet</div>
 
-    <div class="search-box">
-      <input type="text" placeholder="Search rooms..." id="searchInput" />
-    </div>
+  <nav class="nav-actions">
+    <a href="login/login.html" class="nav-link">Login</a>
+    <a href="signup.html" class="nav-btn">Sign up</a>
+  </nav>
+</header>
 
-    <button class="add-room-btn">+ Add room</button>
-  </div>
-  </header>
+<section class="hero">
+  <div class="hero-content">
+    <h1>
+      Talk. Learn. Build.<br />
+      Together in Real Time.
+    </h1>
 
-  <!-- Create Room Modal -->
-  <div class="modal" id="createRoomModal">
-  <div class="modal-content">
-    <h2>Create a Room</h2>
-
-    <form id="createRoomForm">
-      <label for="roomName">Room Name</label>
-      <input type="text" id="roomName" placeholder="Enter room name" required />
-
-      <label for="roomType">Room Type</label>
-      <select id="roomType" required>
-        <option value="game">Game</option>
-        <option value="language">Language</option>
-        <option value="learning">Learning</option>
-        <option value="business">Business</option>
-        <option value="coding">Coding</option>
-      </select>
-
-
-
-      <div class="modal-buttons">
-        <button type="submit">Create</button>
-        <button type="button" id="cancelModal" style="color: red;">Cancel</button>
-      </div>
-    </form>
-  </div>
-  </div>
-
-
-  <div class="visibility-toggle">
-  <span class="option active" data-visibility="public">Public</span>
-  <span class="option" data-visibility="private">Private</span>
-  </div>
-
-  <div class="public">
-
-  <p class="welcom">
-    Select a contact to start a video call
-  </p>
-  <div class="room-filters">
-  <button class="filter-chip active" data-type="all">All</button>
-  <button class="filter-chip" data-type="game">Games</button>
-  <button class="filter-chip" data-type="language">Languages</button>
-  <button class="filter-chip" data-type="learning">Learning</button>
-  <button class="filter-chip" data-type="business">Business</button>
-  <button class="filter-chip" data-type="coding">Coding</button>
-  </div>
-
-  <div class="friends-list" id="roomsList">
-    <div class="friend-card" onclick="startCall('wassim')">
-      <div class="top">
-        <div class="avatar">W</div>
-
-        <div class="info">
-          <span class="name">wassim</span>
-          <p class="subtitle">join me to play</p>
-        </div>
-      </div>
-
-      <div class="bottom">
-        <span class="tag">game</span>
-      </div>
-    </div>
-    <div class="friend-card" onclick="startCall('wassim')">
-      <div class="top">
-        <div class="avatar">W</div>
-
-        <div class="info">
-          <span class="name">wassim</span>
-          <p class="subtitle">join me to play</p>
-        </div>
-      </div>
-
-      <div class="bottom">
-        <span class="tag">game</span>
-      </div>
-    </div>
-    <div class="friend-card" onclick="startCall('wassim')">
-      <div class="top">
-        <div class="avatar">W</div>
-
-        <div class="info">
-          <span class="name">wassim</span>
-          <p class="subtitle">join me to play</p>
-        </div>
-      </div>
-
-      <div class="bottom">
-        <span class="tag">game</span>
-      </div>
-    </div>
-    <div class="friend-card" onclick="startCall('wassim')">
-      <div class="top">
-        <div class="avatar">W</div>
-
-        <div class="info">
-          <span class="name">wassim</span>
-          <p class="subtitle">join me to play</p>
-        </div>
-      </div>
-
-      <div class="bottom">
-        <span class="tag">game</span>
-      </div>
-    </div>
-  </div>
-  </div>
-  <div class="private">
-    <p class="welcom">
-      Enter a room code to join a private call
+    <p>
+      Join or create rooms to practice languages, code together,
+      play games or collaborate — powered by WebRTC.
     </p>
-    <div class="private-room-entry">
-      <input type="text" id="roomCodeInput" placeholder="Enter room code" />
-      <button id="joinRoomBtn">Join Room</button>
+
+    <div class="hero-actions">
+      <a href="signup.html" class="btn-primary">Get Started</a>
+      <a href="login/login.html" class="btn-secondary">I already have an account</a>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <h3>Public & Private Rooms</h3>
+        <p>Create open rooms or invite people using a private code.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Real-Time Communication</h3>
+        <p>Low-latency video & audio using WebRTC.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Topic-Based Rooms</h3>
+        <p>Games, coding, learning, languages and business.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Simple & Secure</h3>
+        <p>Authentication and access control built-in.</p>
+      </div>
     </div>
   </div>
-</section>
 
-
-<!-- ================= MEETING VIEW ================= -->
-<section id="meetingView" class="view hidden">
-
-  <header class="meeting-header">
-    <span>Secure WebRTC Call</span>
-  </header>
-
-  <div class="video-area">
-    <video id="remoteVideo" autoplay playsinline></video>
-    <video id="localVideo" autoplay muted playsinline class="local-video"></video>
+  <div class="hero-visual">
+    <span>WebRTC Preview</span>
   </div>
-
-  <footer class="controls">
-    <button id="micBtn" class="control-btn">Mute</button>
-    <button id="camBtn" class="control-btn">Stop Video</button>
-    <button id="leaveBtn" class="control-btn danger">Leave</button>
-  </footer>
-
 </section>
 
-<script src="app.js"></script>
+<footer>
+  © 2025 WebRTC Meet — Built for real-time collaboration
+</footer>
+
 </body>
 </html>
