@@ -6,7 +6,8 @@ const User = require("./models/user");
 // const cors = require("cors");
 app.use(express.json())
 // app.use(cors());
-
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "mysecretkey123";
 
 mongoose.connect("mongodb+srv://mimi:zSDLuixuyAZ8yJJb@cluster0.c0i44r3.mongodb.net/?appName=Cluster0")
 .then(()=>{
@@ -42,7 +43,11 @@ app.post("/signup", async (req,res)=>{
             password: hashedPassword
         });
         await newUser.save();
-        res.status(201).json({ message: "You successfully registered" });
+        const token = jwt.sign({ id: newUser._id }, SECRET_KEY, { expiresIn: "1h" });
+
+        res.status(201).json({ message: "You successfully registered" ,token,
+            user: { name: newUser.name, email: newUser.email }
+        });
     }catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -62,7 +67,13 @@ app.post("/signin", async (req,res) =>{
         if(!user) {
             return res.status(400).json({message : "account not found"});
         }
-        res.status(200).json({message: "signin successful"})
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ message: "Invalid password" });
+
+
+        const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1h" });
+        res.status(200).json({message: "signin successful",token,
+         user: { name: user.name, email: user.email }})
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -70,7 +81,42 @@ app.post("/signin", async (req,res) =>{
 })
 
 
+//profile
 
+app.get("/profile", async (req, res) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader) return res.status(401).json({ message: "No token provided" });
+
+        const token = authHeader.split(" ")[1]; // "Bearer <token>"
+        const decoded = jwt.verify(token, SECRET_KEY);
+
+        // Find the user by ID from token
+        const user = await User.findById(decoded.id).select("-password"); // remove password
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        res.status(200).json({ user });
+    } catch (error) {
+        console.error(error);
+        res.status(401).json({ message: "Invalid token" });
+    }
+});
+
+//front end fetching
+
+// const token = localStorage.getItem("token"); // or wherever you stored it
+
+// fetch("http://localhost:3000/profile", {
+//   headers: {
+//     "Authorization": "Bearer " + token
+//   }
+// })
+// .then(res => res.json())
+// .then(data => {
+//     console.log("User profile:", data.user);
+//     // Display the user profile in your UI
+// })
+// .catch(err => console.error(err));
 
 
 
